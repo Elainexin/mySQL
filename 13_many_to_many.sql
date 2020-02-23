@@ -29,15 +29,15 @@
 -- GROUP BY genre;
 
 -- challenge 6 - Reviewer Status
-SELECT 
-	first_name, 
-	last_name, 
-	COUNT(reviews.id) AS COUNT,
-	IFNULL(MIN(rating),0) AS MIN,
-	IFNULL(MAX(rating),0) AS MAX,
-	IFNULL(AVG(rating),0) AS AVG,
+-- SELECT 
+-- 	first_name, 
+-- 	last_name, 
+-- 	COUNT(reviews.id) AS COUNT,
+-- 	IFNULL(MIN(rating),0) AS MIN,
+-- 	IFNULL(MAX(rating),0) AS MAX,
+-- 	IFNULL(AVG(rating),0) AS AVG,
 -- CAN ALSO USE IF instead of CASE statement
-	IF(COUNT(rating)>=1,'ACTIVE','INACTIVE') AS STATUS
+	-- IF(COUNT(rating)>=1,'ACTIVE','INACTIVE') AS STATUS
 
 -- case statement
 	-- CASE 
@@ -50,11 +50,20 @@ SELECT
  --         WHEN Count(rating) > 0 THEN 'ACTIVE' 
  --         ELSE 'INACTIVE' 
  --       end                              AS STATUS 
-FROM reviewers
-LEFT JOIN reviews 
-	ON reviewers.id = reviews.reviewer_id
-GROUP BY reviewers.id;
+-- FROM reviewers
+-- LEFT JOIN reviews 
+-- 	ON reviewers.id = reviews.reviewer_id
+-- GROUP BY reviewers.id;
 
 
 -- challenge 7
-
+SELECT 
+	title,
+	rating, 
+	CONCAT(first_name,' ',last_name) AS reviewers
+FROM series
+INNER JOIN reviews 
+	ON series.id = reviews.series_id
+INNER JOIN reviewers
+	ON reviews.reviewer_id = reviewers.id
+ORDER BY title;
